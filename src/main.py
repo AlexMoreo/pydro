@@ -8,7 +8,6 @@ from sklearn.metrics import f1_score, make_scorer
 def classify_and_test(X, y, Xte, yte, average=1):
     svm = LinearSVC()
     svm.fit(X, y)
-    # print(svm.best_params_)
     yte_ = svm.predict(Xte)
     if average>1:
         yte_ = yte_.reshape(-1,average).mean(axis=1)>0.5
@@ -46,7 +45,10 @@ print(f'positives = {positives} (prevalence={positives*100/nD:.2f}%)')
 print('LinearSVC on the original space')
 classify_and_test(Xtr, ytr, Xte, yte)
 
-# test the DRO
+# test the DRO: the minority-class examples from the training set will be oversampled up to match the balance ratio
+# while the majority-class examples will be simply taken (and enlarged to the new space). Test documents undergo the
+# same process, i.e., they have to be expanded to the new space. Each test example is, however, drawn 5 times in this
+# example, so that the decision for a test document becomes that from a committee of 5 elements.
 dro = DistributionalRandomOversampling(rebalance_ratio=0.1)
 Xtr, ytr = dro.fit_transform(Xtr, ytr, train_nwords)
 Xte = dro.transform(Xte, test_nwords, samples=5)

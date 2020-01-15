@@ -8,8 +8,10 @@ def information_gain(cell):
         else:
             return 0.0
 
-    return ig_factor(cell.p_tp(), cell.p_f(), cell.p_c()) + ig_factor(cell.p_fp(), cell.p_f(), cell.p_not_c()) \
-           + ig_factor(cell.p_fn(), cell.p_not_f(), cell.p_c()) + ig_factor(cell.p_tn(), cell.p_not_f(), cell.p_not_c())
+    return ig_factor(cell.p_tp(), cell.p_f(), cell.p_c()) + \
+           ig_factor(cell.p_fp(), cell.p_f(), cell.p_not_c()) +\
+           ig_factor(cell.p_fn(), cell.p_not_f(), cell.p_c()) +\
+           ig_factor(cell.p_tn(), cell.p_not_f(), cell.p_not_c())
 
 
 class ContTable:

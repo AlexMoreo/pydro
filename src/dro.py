@@ -129,7 +129,7 @@ def as_array_of_ints(val, nD):
     if isinstance(val, int):
         return np.full(nD, val)
     elif isinstance(val, list) or isinstance(val, np.ndarray):
-        assert len(val) == nD, 'wrong shape of vector "samples"'
+        assert len(val) == nD, 'wrong shape (must be equal to the number of documents)'
         return np.asarray(val)
     raise ValueError('unexpected type. Should be int, list, or array of shape (n_docs)')
 
